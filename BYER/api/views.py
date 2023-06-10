@@ -12,10 +12,12 @@ class Incremental_values:
     def increment(self):
         return self.empid
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def getData(request):
     if request.method == 'POST':
-        person = "Welcome To My POST"
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        person = {'name' : body['name'], 'email' : body['email'],'userId' : 101}
         return Response(person)
     elif request.method == 'GET':
         body_unicode = request.body.decode('utf-8')
